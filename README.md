@@ -1,6 +1,6 @@
 ##  **致谢**  
  * 感谢若依开源[RuoYi](http://www.ruoyi.vip)
- * 感谢奔跑的面条[链接]（https://gitee.com/MTrun/big-screen-vue-datav）
+ * 感谢奔跑的面条[链接](https://gitee.com/MTrun/big-screen-vue-datav)
  * 感谢AiDex Sharp[链接](https://gitee.com/big-hedgehog/ruoyi-uniapp)
 
 ##  **声明** 
