@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecenter.system.mapper.SysAppMapper">
+
+    <resultMap type="SysApp" id="SysAppResult">
+        <result property="appId"    column="app_id"    />
+        <result property="appName"    column="app_name"    />
+        <result property="appUrl"    column="app_url"    />
+        <result property="type"    column="type"    />
+    </resultMap>
+
+    <sql id="selectSysAppVo">
+        select app_id, app_name, app_url, type from sys_app
+    </sql>
+
+    <select id="selectSysAppList" parameterType="SysApp" resultMap="SysAppResult">
+        <include refid="selectSysAppVo"/>
+        <where>
+            <if test="appName != null  and appName != ''"> and app_name like concat('%', #{appName}, '%')</if>
+            <if test="appUrl != null  and appUrl != ''"> and app_url = #{appUrl}</if>
+            <if test="type != null "> and type = #{type}</if>
+        </where>
+    </select>
+
+    <select id="selectSysAppByAppId" parameterType="String" resultMap="SysAppResult">
+        <include refid="selectSysAppVo"/>
+        where app_id = #{appId}
+    </select>
+
+    <insert id="insertSysApp" parameterType="SysApp">
+        insert into sys_app
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="appId != null">app_id,</if>
+            <if test="appName != null">app_name,</if>
+            <if test="appUrl != null">app_url,</if>
+            <if test="type != null">type,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="appId != null">#{appId},</if>
+            <if test="appName != null">#{appName},</if>
+            <if test="appUrl != null">#{appUrl},</if>
+            <if test="type != null">#{type},</if>
+        </trim>
+    </insert>
+
+    <update id="updateSysApp" parameterType="SysApp">
+        update sys_app
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="appName != null">app_name = #{appName},</if>
+            <if test="appUrl != null">app_url = #{appUrl},</if>
+            <if test="type != null">type = #{type},</if>
+        </trim>
+        where app_id = #{appId}
+    </update>
+
+    <delete id="deleteSysAppByAppId" parameterType="String">
+        delete from sys_app where app_id = #{appId}
+    </delete>
+
+    <delete id="deleteSysAppByAppIds" parameterType="String">
+        delete from sys_app where app_id in
+        <foreach item="appId" collection="array" open="(" separator="," close=")">
+            #{appId}
+        </foreach>
+    </delete>
+
+    <select id="selectAppList" resultType="RoleTree">
+        select app_id as id, app_name as label from sys_app
+    </select>
+
+</mapper>

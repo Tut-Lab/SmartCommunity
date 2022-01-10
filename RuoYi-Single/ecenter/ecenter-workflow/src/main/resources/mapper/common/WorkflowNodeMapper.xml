@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ecenter.workflow.common.mapper.WorkflowNodeMapper">
+
+    <resultMap type="WorkflowNode" id="WorkflowNodeResult">
+        <result property="id"    column="id"    />
+        <result property="workflowNodeId"    column="workflow_node_id"    />
+        <result property="workflowId"    column="workflow_id"    />
+        <result property="roleId"    column="role_id"    />
+        <result property="nodeName"    column="node_name"    />
+        <result property="roleName"    column="role_name"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectWorkflowNodeVo">
+        select id, workflow_node_id, workflow_id, role_id, node_name, role_name, create_time, update_time from workflow_node
+    </sql>
+
+    <select id="selectWorkflowNodeList" parameterType="WorkflowNode" resultMap="WorkflowNodeResult">
+        <include refid="selectWorkflowNodeVo"/>
+        <where>
+            <if test="workflowNodeId != null "> and workflow_node_id = #{workflowNodeId}</if>
+            <if test="workflowId != null "> and workflow_id = #{workflowId}</if>
+            <if test="roleId != null "> and role_id = #{roleId}</if>
+            <if test="nodeName != null  and nodeName != ''"> and node_name like concat('%', #{nodeName}, '%')</if>
+            <if test="roleName != null  and roleName != ''"> and role_name like concat('%', #{roleName}, '%')</if>
+        </where>
+    </select>
+
+    <select id="selectWorkflowNodeById" parameterType="Long" resultMap="WorkflowNodeResult">
+        <include refid="selectWorkflowNodeVo"/>
+        where id = #{id}
+    </select>
+
+    <insert id="insertWorkflowNode" parameterType="WorkflowNode" useGeneratedKeys="true" keyProperty="id">
+        insert into workflow_node
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="workflowNodeId != null">workflow_node_id,</if>
+            <if test="workflowId != null">workflow_id,</if>
+            <if test="roleId != null">role_id,</if>
+            <if test="nodeName != null">node_name,</if>
+            <if test="roleName != null">role_name,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="workflowNodeId != null">#{workflowNodeId},</if>
+            <if test="workflowId != null">#{workflowId},</if>
+            <if test="roleId != null">#{roleId},</if>
+            <if test="nodeName != null">#{nodeName},</if>
+            <if test="roleName != null">#{roleName},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateWorkflowNode" parameterType="WorkflowNode">
+        update workflow_node
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="workflowNodeId != null">workflow_node_id = #{workflowNodeId},</if>
+            <if test="workflowId != null">workflow_id = #{workflowId},</if>
+            <if test="roleId != null">role_id = #{roleId},</if>
+            <if test="nodeName != null">node_name = #{nodeName},</if>
+            <if test="roleName != null">role_name = #{roleName},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteWorkflowNodeById" parameterType="Long">
+        delete from workflow_node where id = #{id}
+    </delete>
+
+    <delete id="deleteWorkflowNodeByIds" parameterType="String">
+        delete from workflow_node where id in
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <!--根据roleId和workflow_id查询节点位置-->
+    <select id="getNodeIdByWorkflowId" parameterType="Long" resultType="Long">
+        SELECT
+            max(workflow_node_id) as workflow_node_id
+        FROM
+            workflow_node
+        WHERE
+            workflow_id = #{workflowId}
+    </select>
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.im.mapper.ImChatInfoMapper">
+
+    <resultMap type="ImChatInfo" id="ImChatInfoResult">
+        <result property="chatId"    column="chat_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="friendId"    column="friend_id"    />
+        <result property="online"    column="online"    />
+        <result property="unread"    column="unread"    />
+        <result property="state"    column="state"    />
+        <result property="hide"    column="hide"    />
+        <result property="type"    column="type"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="updateTime"    column="update_time"    />
+    </resultMap>
+
+    <sql id="selectImChatInfoVo">
+        select chat_id, user_id, friend_id, online, unread, state, hide, type, create_time, update_time from im_chat_info
+    </sql>
+
+    <select id="selectImChatInfoList" parameterType="ImChatInfo" resultMap="ImChatInfoResult">
+        <include refid="selectImChatInfoVo"/>
+        <where>
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="friendId != null  and friendId != ''"> and friend_id = #{friendId}</if>
+            <if test="online != null "> and online = #{online}</if>
+            <if test="unread != null "> and unread = #{unread}</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="hide != null "> and hide = #{hide}</if>
+            <if test="type != null "> and type = #{type}</if>
+        </where>
+    </select>
+
+    <select id="selectImChatInfoByChatId" parameterType="String" resultMap="ImChatInfoResult">
+        <include refid="selectImChatInfoVo"/>
+        where chat_id = #{chatId}
+    </select>
+
+    <insert id="insertImChatInfo" parameterType="ImChatInfo">
+        insert into im_chat_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="chatId != null">chat_id,</if>
+            <if test="userId != null and userId != ''">user_id,</if>
+            <if test="friendId != null and friendId != ''">friend_id,</if>
+            <if test="online != null">online,</if>
+            <if test="unread != null">unread,</if>
+            <if test="state != null">state,</if>
+            <if test="hide != null">hide,</if>
+            <if test="type != null">type,</if>
+            <if test="createTime != null">create_time,</if>
+            <if test="updateTime != null">update_time,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="chatId != null">#{chatId},</if>
+            <if test="userId != null and userId != ''">#{userId},</if>
+            <if test="friendId != null and friendId != ''">#{friendId},</if>
+            <if test="online != null">#{online},</if>
+            <if test="unread != null">#{unread},</if>
+            <if test="state != null">#{state},</if>
+            <if test="hide != null">#{hide},</if>
+            <if test="type != null">#{type},</if>
+            <if test="createTime != null">#{createTime},</if>
+            <if test="updateTime != null">#{updateTime},</if>
+        </trim>
+    </insert>
+
+    <update id="updateImChatInfo" parameterType="ImChatInfo">
+        update im_chat_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null and userId != ''">user_id = #{userId},</if>
+            <if test="friendId != null and friendId != ''">friend_id = #{friendId},</if>
+            <if test="online != null">online = #{online},</if>
+            <if test="unread != null">unread = #{unread},</if>
+            <if test="state != null">state = #{state},</if>
+            <if test="hide != null">hide = #{hide},</if>
+            <if test="type != null">type = #{type},</if>
+            <if test="createTime != null">create_time = #{createTime},</if>
+            <if test="updateTime != null">update_time = #{updateTime},</if>
+        </trim>
+        where chat_id = #{chatId}
+    </update>
+
+    <delete id="deleteImChatInfoByChatId" parameterType="String">
+        delete from im_chat_info where chat_id = #{chatId}
+    </delete>
+
+    <delete id="deleteImChatInfoByChatIds" parameterType="String">
+        delete from im_chat_info where chat_id in
+        <foreach item="chatId" collection="array" open="(" separator="," close=")">
+            #{chatId}
+        </foreach>
+    </delete>
+</mapper>

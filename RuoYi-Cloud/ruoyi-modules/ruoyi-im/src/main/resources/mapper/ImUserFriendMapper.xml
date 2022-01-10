@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.im.mapper.ImUserFriendMapper">
+
+    <resultMap type="ImUserFriend" id="ImUserFriendResult">
+        <result property="relationId"    column="relation_id"    />
+        <result property="userId"    column="user_id"    />
+        <result property="friendId"    column="friend_id"    />
+        <result property="remarkContent"    column="remark_content"    />
+        <result property="label"    column="label"    />
+        <result property="authority"    column="authority"    />
+        <result property="shareState"    column="share_state"    />
+        <result property="origin"    column="origin"    />
+        <association property="sysUser"    column="req_user_id" javaType="SysUser" resultMap="SysUserResult" />
+    </resultMap>
+
+    <resultMap type="SysUser" id="SysUserResult">
+        <id     property="userId"       column="user_id"      />
+        <result property="deptId"       column="dept_id"      />
+        <result property="userName"     column="user_name"    />
+        <result property="nickName"     column="nick_name"    />
+        <result property="email"        column="email"        />
+        <result property="phonenumber"  column="phonenumber"  />
+        <result property="sex"          column="sex"          />
+        <result property="avatar"       column="avatar"       />
+        <result property="password"     column="password"     />
+        <result property="status"       column="status"       />
+        <result property="delFlag"      column="del_flag"     />
+        <result property="loginIp"      column="login_ip"     />
+        <result property="loginDate"    column="login_date"   />
+        <result property="createBy"     column="create_by"    />
+        <result property="createTime"   column="create_time"  />
+        <result property="updateBy"     column="update_by"    />
+        <result property="updateTime"   column="update_time"  />
+        <result property="remark"       column="remark"       />
+    </resultMap>
+
+    <sql id="selectImUserFriendVo">
+        select relation_id, user_id, friend_id, remark_content, label, authority, share_state, origin from im_user_friend
+    </sql>
+
+    <select id="selectImUserFriendList" parameterType="ImUserFriend" resultMap="ImUserFriendResult">
+        <include refid="selectImUserFriendVo"/>
+        <where>
+            <if test="userId != null  and userId != ''"> and user_id = #{userId}</if>
+            <if test="friendId != null  and friendId != ''"> and friend_id = #{friendId}</if>
+            <if test="remarkContent != null  and remarkContent != ''"> and remark_content = #{remarkContent}</if>
+            <if test="label != null  and label != ''"> and label = #{label}</if>
+            <if test="authority != null  and authority != ''"> and authority = #{authority}</if>
+            <if test="shareState != null  and shareState != ''"> and share_state = #{shareState}</if>
+            <if test="origin != null  and origin != ''"> and origin = #{origin}</if>
+        </where>
+    </select>
+
+    <select id="selectImUserFriendListByUserId" parameterType="String" resultMap="ImUserFriendResult">
+        select iuf.relation_id, iuf.user_id, iuf.friend_id, iuf.remark_content, iuf.label, iuf.authority, iuf.share_state, iuf.origin ,
+               u.user_id, u.dept_id, u.nick_name, u.user_name, u.email, u.avatar, u.phonenumber
+        from im_user_friend iuf left join sys_user u on u.user_id = iuf.friend_id where iuf.user_id=#{userId}
+    </select>
+
+    <select id="selectImUserFriendListByFriendId" resultMap="ImUserFriendResult">
+        select iuf.relation_id, iuf.user_id, iuf.friend_id, iuf.remark_content, iuf.label, iuf.authority, iuf.share_state, iuf.origin ,
+               u.user_id, u.dept_id, u.nick_name, u.user_name, u.email, u.avatar, u.phonenumber
+        from im_user_friend iuf left join sys_user u on u.user_id = iuf.friend_id where iuf.user_id=#{userId} and iuf.friend_id=#{friendId}
+    </select>
+
+    <select id="selectImUserFriendByRelationId" parameterType="String" resultMap="ImUserFriendResult">
+        <include refid="selectImUserFriendVo"/>
+        where relation_id = #{relationId}
+    </select>
+
+    <insert id="insertImUserFriend" parameterType="ImUserFriend">
+        insert into im_user_friend
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="relationId != null">relation_id,</if>
+            <if test="userId != null">user_id,</if>
+            <if test="friendId != null">friend_id,</if>
+            <if test="remarkContent != null">remark_content,</if>
+            <if test="label != null">label,</if>
+            <if test="authority != null">authority,</if>
+            <if test="shareState != null">share_state,</if>
+            <if test="origin != null">origin,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="relationId != null">#{relationId},</if>
+            <if test="userId != null">#{userId},</if>
+            <if test="friendId != null">#{friendId},</if>
+            <if test="remarkContent != null">#{remarkContent},</if>
+            <if test="label != null">#{label},</if>
+            <if test="authority != null">#{authority},</if>
+            <if test="shareState != null">#{shareState},</if>
+            <if test="origin != null">#{origin},</if>
+        </trim>
+    </insert>
+
+    <update id="updateImUserFriend" parameterType="ImUserFriend">
+        update im_user_friend
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="userId != null">user_id = #{userId},</if>
+            <if test="friendId != null">friend_id = #{friendId},</if>
+            <if test="remarkContent != null">remark_content = #{remarkContent},</if>
+            <if test="label != null">label = #{label},</if>
+            <if test="authority != null">authority = #{authority},</if>
+            <if test="shareState != null">share_state = #{shareState},</if>
+            <if test="origin != null">origin = #{origin},</if>
+        </trim>
+        where relation_id = #{relationId}
+    </update>
+
+    <delete id="deleteImUserFriendByRelationId" parameterType="String">
+        delete from im_user_friend where relation_id = #{relationId}
+    </delete>
+
+    <delete id="deleteImUserFriendByRelationIds" parameterType="String">
+        delete from im_user_friend where relation_id in
+        <foreach item="relationId" collection="array" open="(" separator="," close=")">
+            #{relationId}
+        </foreach>
+    </delete>
+</mapper>
