@@ -22,7 +22,7 @@
    
 
 ## 文档地址
-   [http://ngx.ypaot.com/docs](http://ngx.ypaot.com/docs)
+   [http://ypaot.com/docs](http://ypaot.com/docs)
 
 ## 平台简介
 
@@ -108,7 +108,7 @@
 
 - admin/admin123  
 
-演示地址：http://ngx.ypaot.com/bigscreen 
+演示地址：http://ypaot.com/bigscreen 
 文档地址：http://doc.ruoyi.vip
 
 ## 演示图
