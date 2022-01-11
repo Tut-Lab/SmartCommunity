@@ -534,8 +534,7 @@ export default {
     },
     /** 新增按钮操作 */
     handleAdd(row) {
-      console.log(this.form)
-      if(this.queryParams.appId == undefined)
+      if(this.queryParams.appId == undefined || this.queryParams.appId == '')
       {
         this.$message({ message: '请先选择所属应用', type: 'warning' });
         return;
@@ -561,8 +560,13 @@ export default {
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
+      if(this.queryParams.appId == undefined || this.queryParams.appId == '')
+      {
+        this.$message({ message: '请先选择所属应用', type: 'warning' });
+        return;
+      }
       this.reset();
-      this.getTreeselect();
+      this.getTreeselect(this.queryParams.appId);
       getMenu(row.menuId).then((response) => {
         this.form = response.data;
         this.open = true;

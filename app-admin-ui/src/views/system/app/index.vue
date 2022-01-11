@@ -95,6 +95,7 @@
       <el-table-column label="操作" align="center" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
+            v-if="scope.row.appId != '27ecdacdfa3f44799c0f4eab5de44f42'"
             size="mini"
             type="text"
             icon="el-icon-edit"
@@ -102,6 +103,7 @@
             v-hasPermi="['system:app:edit']"
           >修改</el-button>
           <el-button
+            v-if="scope.row.appId != '27ecdacdfa3f44799c0f4eab5de44f42'"
             size="mini"
             type="text"
             icon="el-icon-delete"
@@ -244,7 +246,7 @@ export default {
     handleAdd() {
       this.reset();
       this.open = true;
-      this.title = "添加xx";
+      this.title = "添加应用";
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
@@ -253,7 +255,7 @@ export default {
       getApp(appId).then(response => {
         this.form = response.data;
         this.open = true;
-        this.title = "修改xx";
+        this.title = "修改应用";
       });
     },
     /** 提交按钮 */
@@ -262,14 +264,12 @@ export default {
         if (valid) {
           if (this.form.appId != null) {
             updateApp(this.form).then(response => {
-              // this.msgSuccess("修改成功");
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
             addApp(this.form).then(response => {
-              // this.msgSuccess("新增成功");
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();
@@ -281,22 +281,28 @@ export default {
     /** 删除按钮操作 */
     handleDelete(row) {
       const appIds = row.appId || this.ids;
-      this.$modal.confirm('是否确认删除xx编号为"' + appIds + '"的数据项?', "警告", {
-          confirmButtonText: "确定",
-          cancelButtonText: "取消",
-          type: "warning"
-        }).then(function() {
-          return delApp(appIds);
-        }).then(() => {
-          this.getList();
-          // this.msgSuccess("删除成功");
-          this.$modal.msgSuccess("删除成功");
-        }).catch(() => {});
+      if(appIds.indexOf('27ecdacdfa3f44799c0f4eab5de44f42') == '-1')
+      {
+        this.$modal.confirm('是否确认删除应用编号为"' + appIds + '"的数据项?', "警告", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
+            type: "warning"
+          }).then(function() {
+            return delApp(appIds);
+          }).then(() => {
+            this.getList();
+            this.$modal.msgSuccess("删除成功");
+          }).catch(() => {});
+      }
+      else
+      {
+        this.$modal.msgWarning("超管系统不能被删除，请重新选择！");
+      }
     },
     /** 导出按钮操作 */
     handleExport() {
       const queryParams = this.queryParams;
-      this.$modal.confirm('是否确认导出所有xx数据项?', "警告", {
+      this.$modal.confirm('是否确认导出所有应用数据项?', "警告", {
           confirmButtonText: "确定",
           cancelButtonText: "取消",
           type: "warning"

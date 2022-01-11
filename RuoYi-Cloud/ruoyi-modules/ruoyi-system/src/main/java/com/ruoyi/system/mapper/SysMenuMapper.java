@@ -109,13 +109,21 @@ public interface SysMenuMapper
     public int deleteMenuById(Long menuId);
 
     /**
+     * 根据appId删除菜单管理信息
+     *
+     * @param appId 菜单ID
+     * @return 结果
+     */
+    public int deleteMenuByAppId(String appId);
+
+    /**
      * 校验菜单名称是否唯一
      * 
      * @param menuName 菜单名称
      * @param parentId 父菜单ID
      * @return 结果
      */
-    public SysMenu checkMenuNameUnique(@Param("menuName") String menuName, @Param("parentId") Long parentId);
+    public SysMenu checkMenuNameUnique(@Param("menuName") String menuName, @Param("parentId") Long parentId, @Param("appId") String appId);
 
     public List<SysMenu> selectMenuByParentId(Long parentId);
 

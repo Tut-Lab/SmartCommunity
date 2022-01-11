@@ -148,6 +148,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		update sys_role set del_flag = '2' where role_id = #{roleId}
 	</delete>
 
+
+	<delete id="deleteRoleByAppId" parameterType="String">
+		delete from sys_role where app_id = #{appId}
+	</delete>
+
 	<delete id="deleteRoleByIds" parameterType="Long">
 		update sys_role set del_flag = '2' where role_id in
 		<foreach collection="array" item="roleId" open="(" separator="," close=")">

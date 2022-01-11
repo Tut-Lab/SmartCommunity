@@ -100,6 +100,14 @@ public interface SysRoleMapper
     public int deleteRoleById(Long roleId);
 
     /**
+     * 根据appId删除角色
+     *
+     * @param appId
+     * @return 结果
+     */
+    public int deleteRoleByAppId(String appId);
+
+    /**
      * 批量删除角色信息
      * 
      * @param roleIds 需要删除的角色ID

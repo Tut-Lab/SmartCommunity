@@ -4,9 +4,7 @@ import settings from '@/settings.js'
 
 // 查询菜单列表
 export function listMenu(query) {
-  console.log(query)
   query.appId = settings.appId
-  console.log(query)
   return request({
     url: '/system/menu/list',
     method: 'get',
@@ -54,6 +52,7 @@ export function addMenu(data) {
 
 // 修改菜单
 export function updateMenu(data) {
+  data.appId = settings.appId;
   return request({
     url: '/system/menu',
     method: 'put',

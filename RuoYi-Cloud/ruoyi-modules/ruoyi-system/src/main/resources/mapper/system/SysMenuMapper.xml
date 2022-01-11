@@ -136,7 +136,7 @@
 
 	<select id="checkMenuNameUnique" parameterType="SysMenu" resultMap="SysMenuResult">
 		<include refid="selectMenuVo"/>
-		where menu_name=#{menuName} and parent_id = #{parentId} limit 1
+		where menu_name=#{menuName} and app_id=#{appId} and parent_id = #{parentId} limit 1
 	</select>
 
 	<update id="updateMenu" parameterType="SysMenu">
@@ -203,6 +203,10 @@
 
 	<delete id="deleteMenuById" parameterType="Long">
 		delete from sys_menu where menu_id = #{menuId}
+	</delete>
+
+	<delete id="deleteMenuByAppId" parameterType="String">
+		delete from sys_menu where app_id = #{appId}
 	</delete>
 
 	<select id="selectMenuByParentId" parameterType="Long" resultMap="SysMenuResult">

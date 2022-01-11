@@ -561,8 +561,13 @@ export default {
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
+      if(this.queryParams.appId == undefined || this.queryParams.appId == '')
+      {
+        this.$message({ message: '请先选择所属应用', type: 'warning' });
+        return;
+      }
       this.reset();
-      this.getTreeselect();
+      this.getTreeselect(this.queryParams.appId);
       getMenu(row.menuId).then((response) => {
         this.form = response.data;
         this.open = true;
@@ -575,14 +580,12 @@ export default {
         if (valid) {
           if (this.form.menuId != undefined) {
             updateMenu(this.form).then((response) => {
-              // this.msgSuccess("修改成功");
               this.$modal.msgSuccess("修改成功");
               this.open = false;
               this.getList();
             });
           } else {
             addMenu(this.form).then((response) => {
-              // this.msgSuccess("新增成功");
               this.$modal.msgSuccess("新增成功");
               this.open = false;
               this.getList();

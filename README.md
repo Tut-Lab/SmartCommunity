@@ -1,6 +1,6 @@
 ##  **致谢**  
  * 感谢若依开源[RuoYi](http://www.ruoyi.vip)
- * 感谢奔跑的面条[链接](https://gitee.com/MTrun/big-screen-vue-datav)
+ * 感谢奔跑的面条[链接]（https://gitee.com/MTrun/big-screen-vue-datav）
  * 感谢AiDex Sharp[链接](https://gitee.com/big-hedgehog/ruoyi-uniapp)
 
 ##  **声明** 
@@ -30,7 +30,7 @@
 |    ├── ruoyi-auth            // 认证中心 [9200]
 |    ├── ruoyi-api             // 接口模块
 |    │       └── ruoyi-api-system                          // 系统接口
-|    ├── ruoyi-common          // 通用模块    
+|    ├── ruoyi-common          // 通用模块
 |    │       └── ruoyi-common-core                         // 核心模块
 |    │       └── ruoyi-common-datascope                    // 权限范围
 |    │       └── ruoyi-common-datasource                   // 多数据源
@@ -39,8 +39,6 @@
 |    │       └── ruoyi-common-security                     // 安全模块
 |    │       └── ruoyi-common-swagger                      // 系统接口
 |    ├── ruoyi-modules         // 业务模块
-|    |       └── ruoyi-im                                  // IM模块   [9301]
-|    |       └── ruoyi-api                                 // magicApi模块  [9401]
 |    │       └── ruoyi-system                              // 系统模块 [9201]
 |    │       └── ruoyi-gen                                 // 代码生成 [9202]
 |    │       └── ruoyi-job                                 // 定时任务 [9203]

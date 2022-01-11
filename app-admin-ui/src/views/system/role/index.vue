@@ -574,11 +574,11 @@ export default {
     },
     /** 修改按钮操作 */
     handleUpdate(row) {
-      // if(this.queryParams.appId == undefined)
-      // {
-      //   this.$message({ message: '请先选择所属应用', type: 'warning' });
-      //   return;
-      // }
+      if(this.queryParams.appId == undefined || this.queryParams.appId == '')
+      {
+        this.$message({ message: '请先选择所属应用', type: 'warning' });
+        return;
+      }
       this.reset();
       const roleId = row.roleId || this.ids
       const roleMenu = this.getRoleMenuTreeselect(roleId);
@@ -639,8 +639,6 @@ export default {
           } else {
             this.form.menuIds = this.getMenuAllCheckedKeys();
             this.form.appId = this.queryParams.appId
-            console.log(this.form)
-            console.log(this.queryParams.appId)
             addRole(this.form).then(response => {
               this.$modal.msgSuccess("新增成功");
               // this.msgSuccess("新增成功");

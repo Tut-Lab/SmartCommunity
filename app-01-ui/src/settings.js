@@ -46,5 +46,5 @@ module.exports = {
   /**
    *  appId
    */
-   appId: '79785c7c016443a8a53af382a1d68d5d'
+   appId: '7eb99ef2143048008bd2204b69ed2633'
 }

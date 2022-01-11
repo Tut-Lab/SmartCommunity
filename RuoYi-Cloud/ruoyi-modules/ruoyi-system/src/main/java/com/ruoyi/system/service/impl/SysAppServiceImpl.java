@@ -2,6 +2,7 @@ package com.ruoyi.system.service.impl;
 
 
 import com.ruoyi.common.core.utils.IdUtils;
+import com.ruoyi.system.api.domain.SysRole;
 import com.ruoyi.system.domain.RoleTree;
 import com.ruoyi.system.domain.RoleTreeChildren;
 import com.ruoyi.system.domain.SysApp;
@@ -9,11 +10,13 @@ import com.ruoyi.system.domain.SysMenu;
 import com.ruoyi.system.mapper.SysAppMapper;
 import com.ruoyi.system.mapper.SysMenuMapper;
 import com.ruoyi.system.mapper.SysRoleMapper;
+import com.ruoyi.system.mapper.SysRoleMenuMapper;
 import com.ruoyi.system.service.ISysAppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +32,9 @@ public class SysAppServiceImpl implements ISysAppService
 
     @Autowired
     private SysRoleMapper sysRoleMapper;
+
+    @Autowired
+    private SysRoleMenuMapper sysRoleMenuMapper;
 
     /**
      * 查询【请填写功能名称】
@@ -154,8 +160,28 @@ public class SysAppServiceImpl implements ISysAppService
      * @return 结果
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int deleteSysAppByAppIds(String[] appIds)
     {
+        List<String> strings = Arrays.asList(appIds);
+        if(strings.contains("27ecdacdfa3f44799c0f4eab5de44f42") == true)
+        {
+            return 0;
+        }
+        for(String appId : appIds)
+        {
+            // 删除该应用下的所有菜单
+            menuMapper.deleteMenuByAppId(appId);
+            // 删除该应用下的角色和菜单关联表中的数据
+            List<RoleTreeChildren> roleTreeChildren = sysRoleMapper.selectRoleListByAppId(appId);
+            for(RoleTreeChildren children : roleTreeChildren)
+            {
+                sysRoleMenuMapper.deleteRoleMenuByRoleId(children.getId());
+            }
+            // 删除该应用下的所有角色
+            sysRoleMapper.deleteRoleByAppId(appId);
+        }
+
         return sysAppMapper.deleteSysAppByAppIds(appIds);
     }
 

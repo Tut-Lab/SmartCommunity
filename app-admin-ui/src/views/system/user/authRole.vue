@@ -17,6 +17,14 @@
     </el-form>
 
     <h4 class="form-header h4">角色信息</h4>
+    <el-select v-model="queryParams.appId" placeholder="所属应用" clearable size="small" @change="appIdSle">
+        <el-option
+          v-for="app in appOptions"
+          :key="app.appId"
+          :label="app.appName"
+          :value="app.appId"
+        />
+    </el-select>
     <el-table v-loading="loading" :row-key="getRowKey" @row-click="clickRow" ref="table" @selection-change="handleSelectionChange" :data="roles.slice((pageNum-1)*pageSize,pageNum*pageSize)">
       <el-table-column label="序号" type="index" align="center">
         <template slot-scope="scope">
@@ -47,6 +55,8 @@
 
 <script>
 import { getAuthRole, updateAuthRole } from "@/api/system/user";
+import { getAppIdList } from "@/api/system/app/api.js";
+import { listRole } from "@/api/system/role";
 
 export default {
   name: "AuthRole",
@@ -63,10 +73,17 @@ export default {
       // 角色信息
       roles: [],
       // 用户信息
-      form: {}
+      form: {},
+      queryParams: {
+        appId: ''
+      },
+      appOptions: []
     };
   },
   created() {
+    getAppIdList().then(res => {
+      this.appOptions = res.data
+    });
     const userId = this.$route.params && this.$route.params.userId;
     if (userId) {
       this.loading = true;
@@ -86,6 +103,20 @@ export default {
     }
   },
   methods: {
+    appIdSle()
+    {
+    
+      // console.log(this.queryParams.appId)
+      // this.form.appId = this.queryParams.appId
+      // console.log(this.form.appId)
+      this.getRolesList({'appId': this.queryParams.appId})
+    },
+    getRolesList(e)
+    {
+      listRole(e).then(res => {
+        this.roles = res.rows;
+      })
+    },
     /** 单击选中行数据 */
     clickRow(row) {
       this.$refs.table.toggleRowSelection(row);
