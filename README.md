@@ -7,7 +7,7 @@
    感谢大佬们的开源，站在巨人的肩膀上，猥琐发育
    本套代码基于若依等系统搭建，没有测试，代码还有很多bug，望见谅 :bowtie:  :bowtie:  :bowtie: 
  
-   RuoYi-Single这个文件夹是单体应用，目前着重更新Cloud版，单体版 bug偏多，还未来得及修改；
+   RuoYi-Single这个文件夹是单体应用，目前着重更新Cloud版，单体版 bug偏多，还未来得及修改；</br>
    Cloud版
     |-RuoYi-Cloud -微服务版后台
     |- app-01-ui -微服务版应用系统1前端
