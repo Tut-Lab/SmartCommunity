@@ -4,6 +4,7 @@ import { Message } from 'element-ui'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import { getToken } from '@/utils/auth'
+import { handleRoutes } from "@/utils/index";
 
 NProgress.configure({ showSpinner: false })
 
@@ -25,6 +26,12 @@ router.beforeEach((to, from, next) => {
             // 根据roles权限生成可访问的路由表
             router.addRoutes(accessRoutes) // 动态添加可访问路由表
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成
+            
+            // 登录获取跳转的首页
+            if(to.path === '/index')
+            {
+              next({ path: handleRoutes(accessRoutes[0])})
+            }
           })
         }).catch(err => {
             store.dispatch('LogOut').then(() => {

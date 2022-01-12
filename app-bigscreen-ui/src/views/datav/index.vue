@@ -27,17 +27,17 @@
         <!-- 第二行 -->
         <div class="d-flex jc-between px-2">
           <div class="d-flex aside-width">
-            <div class="react-left ml-4 react-l-s pointer" @click="handbook('http://ngx.ypaot.com/ry-admin')">
+            <div class="react-left ml-4 react-l-s pointer" @click="handbook('http://ypaot.com/ry-admin')">
               <span class="react-before"></span>
               <span class="text">应用1</span>
             </div>
-            <div class="react-right ml-3 pointer" @click="handbook('http://ngx.ypaot.com/appone')">
+            <div class="react-right ml-3 pointer" @click="handbook('http://ypaot.com/appone')">
               <span class="text">应用2</span>
             </div>
             <div class="react-right ml-3 pointer">
               <span class="text"></span>
             </div>
-            <div class="react-right ml-3 pointer" @click="handbook('http://ngx.ypaot.com/mobile')">
+            <div class="react-right ml-3 pointer" @click="handbook('http://ypaot.com/mobile')">
               <span class="text">移动端</span>
             </div>
           </div>

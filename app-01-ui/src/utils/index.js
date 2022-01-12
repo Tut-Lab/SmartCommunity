@@ -388,3 +388,10 @@ export function isNumberStr(str) {
   return /^[+-]?(0|([1-9]\d*))(\.\d+)?$/g.test(str)
 }
  
+// 递归获取首页路由
+export function handleRoutes(arr) {
+  // if(arr.hidden)
+  if(arr.children == null) return arr.path;
+  if(arr.path == '/') arr.path = '';
+  return arr.path + '/' + handleRoutes(arr.children[0]);
+}
