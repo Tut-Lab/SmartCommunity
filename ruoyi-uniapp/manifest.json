@@ -148,7 +148,7 @@
             "https" : false,
             "proxy" : {
                 "/dev-api" : {
-                    "target" : "http://localhost:8080",
+                    "target" : "http://ypaot.com/prod-api",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {
@@ -160,13 +160,13 @@
         "template" : "template.h5.html",
         "router" : {
             "mode" : "hash",
-            "base" : ""
+            "base" : "./"
         },
         "optimization" : {
             "treeShaking" : {
                 "enable" : false
             }
         },
-        "title" : "uView UI"
+        "title" : "移动端"
     }
 }
