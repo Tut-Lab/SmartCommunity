@@ -107,6 +107,8 @@
 ## 在线体验
 
 - admin/admin123  
+- uniapp 体验账号 lisi 123456 
+-                zhangsan 123456
 
 演示地址：http://ypaot.com/bigscreen 
 文档地址：http://doc.ruoyi.vip
