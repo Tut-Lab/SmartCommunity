@@ -5,7 +5,7 @@
 import Vue from 'vue'
 export default {
 	 onLaunch() {
-		this.$store.dispatch('WEBSOCKET_INIT', 'ws://172.16.2.73:18080/ws')
+		this.$store.dispatch('WEBSOCKET_INIT', 'ws://ypaot.com/ws')
 		// 国际化，设置当前语言
 		if (this.vuex_locale){
 			this.$i18n.locale = this.vuex_locale;

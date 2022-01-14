@@ -142,22 +142,22 @@
 		},
 		onHide()
 		{
-			console.log(666);
-			console.log(this);
+			// console.log(666);
+			// console.log(this);
 		},
 		onBackPress()
 		{
-			console.log(8888);
-			console.log(this);
+			// console.log(8888);
+			// console.log(this);
 		},
 		onLoad(option) {
-			console.log(option)
+			// console.log(option)
 			this.friendName = option.userName;
 			this.friendId = option.friendId;
 			if (this.$store.state.socketTask) {
 				this.onSocketMessage(this.$store.state.socketTask);
 			} else {
-				this.$store.dispatch('WEBSOCKET_INIT', 'ws://172.16.2.73:18080/ws');
+				this.$store.dispatch('WEBSOCKET_INIT', 'ws://ypaot.com/ws');
 				this.onSocketMessage(this.$store.state.socketTask);
 			}
 
@@ -196,7 +196,7 @@
 			},
 			onSocketMessage(socket) {
 				socket.onMessage(res => {
-					console.log('CHAT页面收到的消息：' + res.data);
+					// console.log('CHAT页面收到的消息：' + res.data);
 					let socketObj = JSON.parse(res.data);
 					if (socketObj.msgType != 'CHAT') return;
 					let socketContent = socketObj.sendContent;

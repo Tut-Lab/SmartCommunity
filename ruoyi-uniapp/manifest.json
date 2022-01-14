@@ -148,8 +148,8 @@
             "https" : false,
             "proxy" : {
                 "/dev-api" : {
-                    // "target" : "http://ypaot.com/prod-api",
-					"target" : "http://localhost:8080",
+                    "target" : "http://ypaot.com/prod-api",
+					// "target" : "http://localhost:8080",
                     "changeOrigin" : true,
                     "secure" : false,
                     "pathRewrite" : {

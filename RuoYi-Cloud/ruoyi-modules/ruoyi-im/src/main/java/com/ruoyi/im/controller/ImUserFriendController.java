@@ -39,7 +39,7 @@ public class ImUserFriendController extends BaseController
     /**
      * 查询好友列表列表
      */
-    // @RequiresPermissions("im:friend:list")
+    @RequiresPermissions("im:friend:list")
     @GetMapping("/list")
     public TableDataInfo list(ImUserFriend imUserFriend)
     {
