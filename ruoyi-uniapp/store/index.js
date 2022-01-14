@@ -34,6 +34,7 @@ const saveLifeData = function(key, value){
 // 简化 vuex 操作，文档：https://uviewui.com/components/vuexDetail.html
 const store = new Vuex.Store({
 	state: {
+
 		// 如果上面从本地获取的lifeData对象下有对应的属性，就赋值给state中对应的变量
 		// 加上vuex_前缀，是防止变量名冲突，也让人一目了然
 		vuex_user: lifeData.vuex_user ? lifeData.vuex_user : {userName: 'Aidex'},
@@ -90,7 +91,7 @@ const store = new Vuex.Store({
 			saveLifeData(saveKey, state[saveKey])
 		},
 		// websocket
-		WEBSOCKET_INIT (state, url) {
+		 WEBSOCKET_INIT (state, url) {
 			state.socketTask = uni.connectSocket({
 				url,
 				success(){
@@ -99,6 +100,13 @@ const store = new Vuex.Store({
 			});
 			state.socketTask.onOpen((res) => {
 				console.log('WebSocket连接正常打开中...！');
+				let userInfo = uni.getStorageSync('userInfo');
+					if(userInfo != ''){
+						let obj = {"msgType":"CONNECT_SERVER","user":{"uid": userInfo.userId,"nickName": userInfo.nickName,"platform":"WEB"}};
+						// this.$store.dispatch('WEBSOCKET_SEND', JSON.stringify(obj));
+						store.dispatch('WEBSOCKET_SEND', JSON.stringify(obj))
+						console.log(6666)
+					}
 				state.socketTask.onMessage(res => {
 					console.log('Store收到服务器内容：' + res.data);
 				})

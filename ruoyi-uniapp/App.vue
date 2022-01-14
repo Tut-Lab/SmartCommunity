@@ -4,17 +4,8 @@
  */
 import Vue from 'vue'
 export default {
-	onLaunch() {
-		console.log(4545)
-		this.$store.dispatch('WEBSOCKET_INIT', 'ws://172.16.2.73:18080/ws');
-		let userInfo = uni.getStorageSync('userInfo');
-		if(userInfo != '')
-		{
-			let obj = {"msgType":"CONNECT_SERVER","user":{"uid": userInfo.userId,"nickName": userInfo.nickName,"platform":"WEB"}};
-			// this.$store.dispatch('WEBSOCKET_SEND', JSON.stringify(obj));
-			this.$store.dispatch('WEBSOCKET_SEND', JSON.stringify(obj));
-			console.log(6666)
-		}
+	 onLaunch() {
+		this.$store.dispatch('WEBSOCKET_INIT', 'ws://172.16.2.73:18080/ws')
 		// 国际化，设置当前语言
 		if (this.vuex_locale){
 			this.$i18n.locale = this.vuex_locale;
