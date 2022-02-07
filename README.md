@@ -7,7 +7,6 @@
    感谢大佬们的开源，站在巨人的肩膀上，猥琐发育
    本套代码基于若依等系统搭建，没有测试，代码还有很多bug，望见谅 :bowtie:  :bowtie:  :bowtie: 
  
-   RuoYi-Single这个文件夹是单体应用，目前着重更新Cloud版，单体版 bug偏多，还未来得及修改；
 
    Could版
 ~~~
@@ -65,10 +64,6 @@
 |    ├──pom.xml                // 公共依赖
 |
 |  
-|- RuoYi-Single -单体应用版
-|    ecenter -单体版后台
-|    ecenter_admin_ui -超管控制台
-|    app-01-ui -子系统1
 |
 |
 |- app-01-ui -微服务版应用系统1前端
