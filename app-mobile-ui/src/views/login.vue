@@ -33,7 +33,7 @@
         center
         clearable
         label="验证码"
-        placeholder="请输入短信验证码"
+        placeholder="请输入验证码"
         required
       >
         <template #button>
