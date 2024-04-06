@@ -13,7 +13,7 @@
 
  Date: 12/01/2022 16:06:32
 */
-
+create schema ry-cloud;
 SET NAMES utf8mb4;
 SET FOREIGN_KEY_CHECKS = 0;
 

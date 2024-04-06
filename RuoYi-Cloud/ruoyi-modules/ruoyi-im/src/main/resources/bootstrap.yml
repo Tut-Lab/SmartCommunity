@@ -16,10 +16,10 @@ spring:
     nacos:
       discovery:
         # 服务注册地址
-        server-addr: 192.168.1.185:8848
+        server-addr: 192.168.1.166:8848
       config:
         # 配置中心地址
-        server-addr: 192.168.1.185:8848
+        server-addr: 192.168.1.166:8848
         # 配置文件格式
         file-extension: yml
         # 共享配置
@@ -36,6 +36,6 @@ chat:
 #ZK服务配置
 ###############
 zk:
-  url: 192.168.1.185:2181
+  url: 192.168.1.166:2181
   timeout: 3000
 
