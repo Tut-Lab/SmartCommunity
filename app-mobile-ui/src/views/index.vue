@@ -20,7 +20,8 @@ import { Notify } from "vant";
 
 import { Toast } from "vant";
 
-import SignCanvas from "../components/SignCanvas";
+// import SignCanvas from "../components/SignCanvas";
+import SignCanvas from "sign-canvas";
 
 export default {
   name: "home",

@@ -39,7 +39,7 @@ public class SqYuyue extends BaseEntity
 
     /** 用户昵称 */
     @Excel(name = "用户昵称")
-    private String adress;
+    private String address;
 
     /** 手机号码 */
     @Excel(name = "手机号码")
@@ -118,14 +118,14 @@ public class SqYuyue extends BaseEntity
     {
         return content;
     }
-    public void setAdress(String adress) 
+    public void setAddress(String address)
     {
-        this.adress = adress;
+        this.address = address;
     }
 
-    public String getAdress() 
+    public String getAddress()
     {
-        return adress;
+        return address;
     }
     public void setPhonenumber(String phonenumber) 
     {
@@ -208,7 +208,7 @@ public class SqYuyue extends BaseEntity
             .append("deptId", getDeptId())
             .append("yuyueTime", getYuyueTime())
             .append("content", getContent())
-            .append("adress", getAdress())
+            .append("address", getAddress())
             .append("phonenumber", getPhonenumber())
             .append("userType", getUserType())
             .append("sex", getSex())

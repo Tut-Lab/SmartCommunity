@@ -25,6 +25,6 @@ const config = {
 
 // 设置后台接口服务的基础地址
 // config.baseUrl = '/dev-api';
-config.baseUrl = '/prod-api';
-// config.baseUrl = 'http://ypaot.com/prod-api';
+// config.baseUrl = '/prod-api';
+config.baseUrl = 'http://192.168.1.166:8080';
 export default config;

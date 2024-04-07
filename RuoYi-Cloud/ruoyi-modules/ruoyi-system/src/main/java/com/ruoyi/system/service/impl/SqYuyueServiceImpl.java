@@ -1,7 +1,10 @@
 package com.ruoyi.system.service.impl;
 
 import java.util.List;
+import java.util.UUID;
+
 import com.ruoyi.common.core.utils.DateUtils;
+import com.ruoyi.common.security.utils.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.ruoyi.system.mapper.SqYuyueMapper;
@@ -54,6 +57,10 @@ public class SqYuyueServiceImpl implements ISqYuyueService
     public int insertSqYuyue(SqYuyue sqYuyue)
     {
         sqYuyue.setCreateTime(DateUtils.getNowDate());
+        String userId = SecurityUtils.getUserId();
+        sqYuyue.setUserId(userId);
+        String uuid = UUID.randomUUID().toString().replaceAll("-", "");
+        sqYuyue.setYuyueId(uuid);
         return sqYuyueMapper.insertSqYuyue(sqYuyue);
     }
 
